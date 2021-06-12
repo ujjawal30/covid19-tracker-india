@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}">
+  <link rel="stylesheet" href="{{url_for('static', filename='css/bootstrap.min.css')}}">
+  <link rel="stylesheet" href="{{url_for('static', filename='css/all.min.css')}}">
+  <title>{{state.0}} | COVID-19 Tracker</title>
+</head>
+
+<body class="bg-light">
+  <nav class="h1 p-3 text-center">
+    <a href="/">COVID-19 Tracker</a>
+  </nav>
+  <div class="container px-5 py-4">
+    <h3 style="text-align: center;"><span class="state-page-name">{{state.0}}</span> Statistics</h3>
+    <div class="update-time">Updated {{state.8}}</div>
+    <div>
+      {% include 'states-map.html' %}
+    </div>
+    <div class="row py-5">
+      <div class="col-sm-3">
+        <div class="card text-center">
+          <div class="card-header new-confirmed h4">
+            Confirmed
+          </div>
+          <div class="card-body">
+            <h5 class="card-title">{{state.1|numberFormat}}</h5>
+            <p class="card-text" style="color: #8f742c;">+{{state.2|numberFormat}}</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-3">
+        <div class="card text-center">
+          <div class="card-header new-active h4">
+            Active
+          </div>
+          <div class="card-body">
+            <h5 class="card-title">{{state.3|numberFormat}}</h5>
+            {% if state.9 >= 0 %}
+            <p class="card-text" style="color: #084298">+{{state.9|numberFormat}}</p>
+            {% else %}
+            <p class="card-text" style="color: #084298">{{state.9|numberFormat}}</p>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-3">
+        <div class="card text-center">
+          <div class="card-header new-recovered h4">
+            Recovered
+          </div>
+          <div class="card-body">
+            <h5 class="card-title">{{state.4|numberFormat}}</h5>
+            <p class="card-text" style="color: #0f5132;">+{{state.5|numberFormat}}</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-3">
+        <div class="card text-center">
+          <div class="card-header new-deceased h4">
+            Deaths
+          </div>
+          <div class="card-body">
+            <h5 class="card-title">{{state.6|numberFormat}}</h5>
+            <p class="card-text" style="color: #842029;">+{{state.7|numberFormat}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% if unknown_data %}
+    <div class="data-not-available h5">District-wise data not available in state bulletin</div>
+    {% else %}
+    <ul class="list-inline">
+      <li class="list-inline-item"><h3>District-wise Statistics</h3></li>
+    </ul>
+    <table class="table table-hover w-100" id="state-table">
+      <thead class="table-head">
+        <tr>
+          <th class="table-head" scope="col">#</th>
+          <th class="table-head" scope="col" onclick="sortState()">District</th>
+          <th class="table-head" scope="col" onclick="sortTable(2)" colspan="2" ondblclick="sortTable(3)">Confirmed</th>
+          <th class="table-head" scope="col" onclick="sortTable(4)">Active</th>
+          <th class="table-head" scope="col" onclick="sortTable(5)"  ondblclick="sortTable(6)" colspan="2">Recovered</th>
+          <th class="table-head" scope="col" onclick="sortTable(7)"  ondblclick="sortTable(8)" colspan="2">Deceased</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for d in data %}
+        {% if d.1 != 0 %}
+        <tr id="data">
+          <td class="table-item serial" style="font-weight: normal;">{{loop.index}}</td>
+          <td class="table-item">
+            <a href="state/{{d.9}}">{{d.0}}</a>
+          </td>
+          <td class="table-item">
+            {{d.1|numberFormat}}
+          </td>
+          {% if d.2 != 0 %}
+          <td class="new-confirmed">
+            +{{d.2|numberFormat}}
+          </td>
+          {% else %}
+          <td class="table-item">
+          </td>
+          {% endif %}
+          <td class="table-item">{{d.3|numberFormat}}</td>
+          <td class="table-item">
+            {{d.4|numberFormat}}
+          </td>
+          {% if d.5 != 0 %}
+          <td class="new-recovered">
+            +{{d.5|numberFormat}}
+          </td>
+          {% else %}
+          <td class="table-item">
+          </td>
+          {% endif %}
+          <td class="table-item">
+            {{d.6|numberFormat}}
+          </td>
+          {% if d.7 != 0 %}
+          <td class="new-deceased">
+            +{{d.7|numberFormat}}
+          </td>
+          {% else %}
+          <td class="table-item">
+          </td>
+          {% endif %}
+        </tr>
+        {% endif %}
+        {% endfor %}
+      </tbody>
+    </table>
+    {% endif %}
+  </div>
+  <script src="{{url_for('static', filename='js/script.js')}}"></script>
+</body>
+
+</html>

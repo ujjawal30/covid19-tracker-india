@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="shortcut icon" href="{{url_for('static', filename='favicon.ico')}}" type="image/x-icon">
+  <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}">
+  <link rel="stylesheet" href="{{url_for('static', filename='css/bootstrap.min.css')}}">
+  <link rel="stylesheet" href="{{url_for('static', filename='css/all.css')}}">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <title>COVID-19 Tracker</title>
+</head>
+
+<body class="bg-light">
+
+  <nav class="h1 p-3 text-center">
+    <a href="/">COVID-19 Tracker</a>
+  </nav>
+
+  <div class="container">
+
+    <!--Search Bar-->
+    <div class="row pt-3">
+      <div class="col-lg-3"></div>
+      <div class="col-lg-6 col-sm-12 col-12">
+        <div class="search-bar shadow-sm mb-4" style="border-radius: 10px;">
+          <form action="search" method="get">
+            <div class="search-group">
+              <button class="btn search-icon" type="button" disabled>
+                <i class="fas fa-search" style="color: #000;"></i>
+              </button>
+              <input type="text" class="form-control" id="search" placeholder="Search your State or District"
+                name="name">
+              <button class="btn" type="button" id="clear" style="visibility:hidden;" onclick="clearSearch()">
+                <i class="fas fa-times"></i>
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div class="update-time">Updated {{data.0.8}}</div>
+
+    <!--Head Cards (Confirmed, Active, Recovered, Deceased)-->
+    <div class="row">
+      <div class="col-sm-6 col-lg-3 col-6 py-4">
+        <div class="card text-center confirmed-card shadow-sm" onclick="viewConfirmed()">
+          <div class="card-header new-confirmed" style="border-radius: 10px;">
+            Confirmed
+          </div>
+          <h5 class="card-title" id="india-confirmed">{{data.0.1|numberFormat}}</h5>
+          <p style="color: #bc6e0d;">+{{data.0.2|numberFormat}}</p>
+        </div>
+      </div>
+      <div class="col-sm-6 col-lg-3 col-6 py-4">
+        <div class="card text-center active-card shadow" onclick="viewActive()">
+          <div class="card-header new-active" style="border-radius: 10px;">
+            Active
+          </div>
+          <h5 class="card-title" id="india-active">{{data.0.3|numberFormat}}</h5>
+          {% if data.0.9 >= 0 %}
+          <p style="color: #084298">+{{data.0.9|numberFormat}}</p>
+          {% else %}
+          <p style="color: #084298">{{data.0.9|numberFormat}}</p>
+          {% endif %}
+        </div>
+      </div>
+      <div class="col-sm-6 col-lg-3 col-6 py-4">
+        <div class="card text-center recovered-card shadow-sm" onclick="viewRecovered()">
+          <div class="card-header new-recovered" style="border-radius: 10px;">
+            Recovered
+          </div>
+          <h5 class="card-title" id="india-recovered">{{data.0.4|numberFormat}}</h5>
+          <p style="color: #006d21;">+{{data.0.5|numberFormat}}</p>
+        </div>
+      </div>
+      <div class="col-sm-6 col-lg-3 col-6 py-4">
+        <div class="card text-center deceased-card shadow-sm" onclick="viewDeceased()">
+          <div class="card-header new-deceased" style="border-radius: 10px;">
+            Deceased
+          </div>
+          <h5 class="card-title" id="india-deceased">{{data.0.6|numberFormat}}</h5>
+          <p style="color: #9c000d;">+{{data.0.7|numberFormat}}</p>
+        </div>
+      </div>
+    </div>
+
+    <!--Maps and Charts-->
+    <div class="row py-3">
+      <div class="col-lg-6 col-sm-12">
+        <div class="map-state-name mb-2 px-2">India</div>
+        <div class="px-2">
+          <span class="map-state-number h4" style="float: left; font-weight: bold">{{data.0.1|numberFormat}}</span>
+          <span class="map-state-map shadow-sm px-2" title="Change Map" onclick="cycleMap()"></span>
+        </div>
+        <div class="py-5">
+          {% include 'india-map.html' %}
+        </div>
+        <div>
+          <ul class="legend">
+            <li class="legend-data rounded-start"></li>
+            <li class="legend-data"></li>
+            <li class="legend-data"></li>
+            <li class="legend-data"></li>
+            <li class="legend-data rounded-end"></li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-lg-6 col-sm-12">
+        <ul class="chart-selector my-3 shadow-sm">
+          <li class="chart-item col-lg-3 col-sm-3 col-3 text-center py-2" style="background-color: #b9b9b9;"
+            id="chart-0" onclick="changeChart(0)">
+            Beginning
+          </li>
+          <li class="chart-item col-lg-3 col-sm-3 col-3 text-center py-2" id="chart-180" onclick="changeChart(180)">
+            Last 6 Months
+          </li>
+          <li class="chart-item col-lg-3 col-sm-3 col-3 text-center py-2" id="chart-90" onclick="changeChart(90)">
+            Last 3 Months
+          </li>
+          <li class="chart-item col-lg-3 col-sm-3 col-3 text-center py-2" id="chart-30" onclick="changeChart(30)">
+            Last 1 Month
+          </li>
+        </ul>
+        <div class="my-4">
+          <h5 id="name-daily" class="px-2" style="width: max-content; border-radius: 10px"></h5>
+          <div class="chart-container my-4">
+            <canvas id="chart-daily" class="shadow-sm" style="border-radius: 10px;"></canvas>
+          </div>
+          <h5 id="name-total" class="px-2" style="width: max-content; border-radius: 10px"></h5>
+          <div class="chart-container my-4">
+            <canvas id="chart-total" class="shadow-sm" style="border-radius: 10px;"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!--Tested and Vaccine Cards-->
+    <div class="row">
+      <div class="col-sm-6 col-lg-6 col-12 my-3">
+        <div class="card tested-card shadow-sm py-2 px-3" style="cursor: default;">
+          <h5 class="card-title">
+            <span style="color: #5400a3;">{{tested.0|numberFormat}}</span>
+            <span class="inc px-1">+{{tested.1|numberFormat}}</span>
+            <i class="far fa-info-circle update-info" data-bs-toggle="tooltip" data-bs-placement="bottom"
+              data-bs-html="true" title="As of <b>{{test_update}}</b>"></i>
+          </h5>
+          <span>Total Individuals Tested</span>
+        </div>
+      </div>
+      <div class="col-sm-6 col-lg-6 col-12 my-3">
+        <div class="card vaccinated-card shadow-sm py-2 px-3" style="cursor: default;">
+          <h5 class="card-title">
+            <span style="color: #b4009c">{{vaccines.0|numberFormat}}</span>
+            <span class="inc px-1">+{{vaccines.1|numberFormat}}</span>
+            <i class="far fa-info-circle update-info" data-bs-toggle="tooltip" data-bs-placement="bottom"
+              data-bs-html="true" title="As of <b>{{test_update}}</b>"></i>
+          </h5>
+          <span>Vaccines Doses Administered</span>
+        </div>
+      </div>
+    </div>
+
+    <!--State Statistics-->
+    <div class="row">
+      <h3 class="py-4" style="text-align: center;">State-wise Statistics</h3>
+      <div class="col-lg-12 col-sm-12 col-12" style="overflow-x:auto;">
+        <table class="table table-hover w-100" id="state-table">
+          <thead>
+            <tr>
+              <th class="table-head" scope="col">#</th>
+              <th class="table-head" scope="col" onclick="sortState()">
+                State / UT<i class="fas fa-sort-alt sort-icon"></i>
+              </th>
+              <th class="table-head" scope="col" onclick="sortTable(2)" ondblclick="sortTable(3)" colspan="2">
+                Confirmed<i class="fas fa-sort-amount-down sort-icon" style="color: #bc6e0d;"></i>
+              </th>
+              <th class="table-head" scope="col" onclick="sortTable(4)">
+                Active<i class="fas fa-sort-alt sort-icon"></i>
+              </th>
+              <th class="table-head" scope="col" onclick="sortTable(5)" ondblclick="sortTable(6)" colspan="2">
+                Recovered<i class="fas fa-sort-alt sort-icon"></i>
+              </th>
+              <th class="table-head" scope="col" onclick="sortTable(7)" ondblclick="sortTable(8)" colspan="2">
+                Deaceased<i class="fas fa-sort-alt sort-icon"></i>
+              </th>
+              <th class="table-head" scope="col">Last Updated</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for d in data %}
+            {% if d.1 != 0 %}
+            {% if d.0 != 'Total' %}
+            <tr id="data">
+              <td class="table-item serial" style="font-weight: normal;">{{loop.index-1}}</td>
+              <td class="table-item">
+                <a href="state/{{d.0}}" class="state-name">{{d.0}}</a>
+              </td>
+              <td class="table-item confirmed">
+                {{d.1|numberFormat}}
+              </td>
+              {% if d.2 != 0 %}
+              <td class="new-confirmed">
+                +{{d.2|numberFormat}}
+              </td>
+              {% else %}
+              <td class="table-item">
+              </td>
+              {% endif %}
+              <td class="table-item active">
+                {{d.3|numberFormat}}
+              </td>
+              <td class="table-item recovered">
+                {{d.4|numberFormat}}
+              </td>
+              {% if d.5 != 0 %}
+              <td class="new-recovered">
+                +{{d.5|numberFormat}}
+              </td>
+              {% else %}
+              <td class="table-item">
+              </td>
+              {% endif %}
+              <td class="table-item deceased">
+                {{d.6|numberFormat}}
+              </td>
+              {% if d.7 != 0 %}
+              <td class="new-deceased">
+                +{{d.7|numberFormat}}
+              </td>
+              {% else %}
+              <td class="table-item">
+              </td>
+              {% endif %}
+              <td class="table-item" id="update" style="font-weight: normal;">{{d.8}}</td>
+            </tr>
+            {% endif %}
+            {% endif %}
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="row" style="display: none;">
+      <table class="table table-hover w-100">
+        <thead>
+          <tr>
+            <th class="table-head" scope="col">Date</th>
+            <th class="table-head" scope="col">Daily Confirmed</th>
+            <th class="table-head" scope="col">Total Confirmed</th>
+            <th class="table-head" scope="col">Daily Recovered</th>
+            <th class="table-head" scope="col">Total Recovered</th>
+            <th class="table-head" scope="col">Daily Deaceased</th>
+            <th class="table-head" scope="col">Total Deaceased</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for t in time %}
+          <tr id="data">
+            <td class="table-item dates">{{t.0}}</td>
+            <td class="table-item daily-confirmed">{{t.1}}</td>
+            <td class="table-item total-confirmed">{{t.2}}</td>
+            <td class="table-item daily-recovered">{{t.3}}</td>
+            <td class="table-item total-recovered">{{t.4}}</td>
+            <td class="table-item daily-deceased">{{t.5}}</td>
+            <td class="table-item total-deceased">{{t.6}}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    <script>
+      var districts = {{ districts | safe }};
+      var districtState = {{ districtstate | safe }};
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns@next/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
+    <script src="{{url_for('static', filename='js/bootstrap.bundle.js')}}"></script>
+    <script src="{{url_for('static', filename='js/chart.js')}}"></script>
+    <script src="{{url_for('static', filename='js/script.js')}}"></script>
+    <script src="{{url_for('static', filename='js/search.js')}}"></script>
+</body>
+
+</html>
