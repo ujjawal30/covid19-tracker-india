@@ -33,9 +33,9 @@ COVID-19 Tracker app that shows real time COVID-19 statistics in different state
 
 ## Screenshots
 
-![Homepage 1](screenshots\indexpage1.png)
+![Homepage 1](https://github.com/ujjawal30/covid19-tracker-india/blob/main/screenshots/indexpage1.png)
 
-![Homepage 2](screenshots\indexpage2.png)
+![Homepage 2](https://github.com/ujjawal30/covid19-tracker-india/blob/main/screenshots/indexpage2.png)
 
 ## Source
 
