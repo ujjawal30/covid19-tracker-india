@@ -35,15 +35,22 @@ nav {
   flex: 1 1 auto;
   width: 1%;
   min-width: 0;
+  border: 0;
+  padding: 0;
 }
 
 .search-group > .form-control:focus {
   z-index: 3;
+  box-shadow: none;
 }
 
 .search-group .btn {
   position: relative;
   z-index: 2;
+}
+
+.search-group .btn:focus {
+  box-shadow: none;
 }
 
 .update-time {
@@ -102,8 +109,7 @@ tr {
 .sort-icon {
   float: right;
   background-color: #e6e6e6;
-  padding-right: 0.25rem;
-  padding-left: 0.25rem;
+  padding: 0.25rem;
   border-radius: 5px;
 }
 
@@ -174,6 +180,7 @@ tr {
 .update-info {
   float: right;
   cursor: pointer;
+  padding-top: 0.25rem;
 }
 
 .tested-card .update-info:hover {

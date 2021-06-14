@@ -19,6 +19,8 @@ const mapStateMapDOM = document.querySelector(".map-state-map");
 
 const legendDataDOM = document.getElementsByClassName("legend-data");
 
+const syncIcon = "<i class='fas fa-sync fa-sm'></i>";
+
 changeChart(90);
 viewConfirmed();
 
@@ -59,7 +61,7 @@ function viewConfirmed() {
   ).textContent;
   mapStateNumberDOM.style.color = "#bc6e0d";
 
-  mapStateMapDOM.innerHTML = "Confirmed  <i class='far fa-sync'></i>";
+  mapStateMapDOM.innerHTML = "Confirmed " + syncIcon;
   mapStateMapDOM.style.color = "#bc6e0d";
   mapStateMapDOM.style.border = "#bc6e0d dashed 2px";
 
@@ -122,7 +124,7 @@ function viewActive() {
   ).textContent;
   mapStateNumberDOM.style.color = "#084298";
 
-  mapStateMapDOM.innerHTML = "Active <i class='far fa-sync'></i>";
+  mapStateMapDOM.innerHTML = "Active " + syncIcon;
   mapStateMapDOM.style.color = "#084298";
   mapStateMapDOM.style.border = "#084298 dashed 2px";
 
@@ -179,7 +181,7 @@ function viewRecovered() {
   mapStateNameDOM.classList.add("new-recovered");
   mapStateNameDOM.innerHTML = "India";
 
-  mapStateMapDOM.innerHTML = "Recovered <i class='far fa-sync'></i>";
+  mapStateMapDOM.innerHTML = "Recovered " + syncIcon;
   mapStateMapDOM.style.color = "#006d21";
   mapStateMapDOM.style.border = "#006d21 dashed 2px";
 
@@ -247,7 +249,7 @@ function viewDeceased() {
   ).textContent;
   mapStateNumberDOM.style.color = "#9c000d";
 
-  mapStateMapDOM.innerHTML = "Deceased <i class='far fa-sync'></i>";
+  mapStateMapDOM.innerHTML = "Deceased " + syncIcon;
   mapStateMapDOM.style.color = "#9c000d";
   mapStateMapDOM.style.border = "#9c000d dashed 2px";
 

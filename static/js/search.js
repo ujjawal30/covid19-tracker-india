@@ -57,7 +57,7 @@ function autocomplete(inp, states, districts, districtState) {
         b = document.createElement("div");
 
         b.innerHTML =
-          "<i class='far fa-university pe-3'></i><strong>" +
+          "<i class='fas fa-university pe-2'></i><strong>" +
           states[i].substr(0, val.length) +
           "</strong>";
         b.innerHTML += states[i].substr(val.length);
@@ -81,7 +81,7 @@ function autocomplete(inp, states, districts, districtState) {
         b = document.createElement("div");
 
         b.innerHTML =
-          "<i class='far fa-city pe-3'></i><strong>" +
+          "<i class='fas fa-building pe-2'></i><strong>" +
           districts[i].substr(0, val.length) +
           "</strong>";
         b.innerHTML += districts[i].substr(val.length);
@@ -107,7 +107,7 @@ function autocomplete(inp, states, districts, districtState) {
       b = document.createElement("div");
       b.classList.add("shadow");
       b.innerHTML =
-        "<strong>" +
+        "<i class='fas fa-exclamation-triangle pe-1'></i> <strong>" +
         val.toTitleCase() +
         "</strong><small class='search-district'>No State or District</small>";
       search.appendChild(b);
