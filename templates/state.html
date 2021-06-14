@@ -18,9 +18,6 @@
   <div class="container px-5 py-4">
     <h3 style="text-align: center;"><span class="state-page-name">{{state.0}}</span> Statistics</h3>
     <div class="update-time">Updated {{state.8}}</div>
-    <div>
-      {% include 'states-map.html' %}
-    </div>
     <div class="row py-5">
       <div class="col-sm-3">
         <div class="card text-center">
@@ -81,11 +78,21 @@
       <thead class="table-head">
         <tr>
           <th class="table-head" scope="col">#</th>
-          <th class="table-head" scope="col" onclick="sortState()">District</th>
-          <th class="table-head" scope="col" onclick="sortTable(2)" colspan="2" ondblclick="sortTable(3)">Confirmed</th>
-          <th class="table-head" scope="col" onclick="sortTable(4)">Active</th>
-          <th class="table-head" scope="col" onclick="sortTable(5)"  ondblclick="sortTable(6)" colspan="2">Recovered</th>
-          <th class="table-head" scope="col" onclick="sortTable(7)"  ondblclick="sortTable(8)" colspan="2">Deceased</th>
+          <th class="table-head" scope="col" onclick="sortState()">
+            District<i class="sort-icon fas fa-sort"></i>
+          </th>
+          <th class="table-head" scope="col" onclick="sortTable(2)" colspan="2">
+            Confirmed<i class="sort-icon fas fa-caret-down"></i>
+          </th>
+          <th class="table-head" scope="col" onclick="sortTable(4)">
+            Active<i class="sort-icon fas fa-sort"></i>
+          </th>
+          <th class="table-head" scope="col" onclick="sortTable(5)" colspan="2">
+            Recovered<i class="sort-icon fas fa-sort"></i>
+          </th>
+          <th class="table-head" scope="col" onclick="sortTable(7)" colspan="2">
+            Deceased<i class="sort-icon fas fa-sort"></i>
+          </th>
         </tr>
       </thead>
       <tbody>

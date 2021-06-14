@@ -20,7 +20,6 @@ const mapStateMapDOM = document.querySelector(".map-state-map");
 const legendDataDOM = document.getElementsByClassName("legend-data");
 
 changeChart(90);
-
 viewConfirmed();
 
 function viewConfirmed() {
@@ -289,10 +288,8 @@ function sortState() {
     y,
     shouldSwitch,
     dir,
-    icon,
     switchcount = 0;
   table = document.getElementById("state-table");
-  icon = document.getElementsByClassName("sort-icon");
   switching = true;
   dir = "asc";
   while (switching) {
@@ -325,33 +322,7 @@ function sortState() {
       }
     }
   }
-  if (dir == "desc") {
-    icon[0].classList.remove("fa-sort-alt");
-    icon[0].classList.remove("fa-sort-alpha-down");
-    icon[0].classList.add("fa-sort-alpha-down-alt");
-  } else if (dir == "asc") {
-    icon[0].classList.remove("fa-sort-alt");
-    icon[0].classList.remove("fa-sort-alpha-down-alt");
-    icon[0].classList.add("fa-sort-alpha-down");
-  }
-  icon[0].style.color = "blue";
-  icon[1].classList.remove("fa-sort-amount-down-alt");
-  icon[1].classList.remove("fa-sort-amount-down");
-  icon[1].classList.add("fa-sort-alt");
-  icon[1].style.color = "";
-  icon[2].classList.remove("fa-sort-amount-down-alt");
-  icon[2].classList.remove("fa-sort-amount-down");
-  icon[2].classList.add("fa-sort-alt");
-  icon[2].style.color = "";
-  icon[3].classList.remove("fa-sort-amount-down-alt");
-  icon[3].classList.remove("fa-sort-amount-down");
-  icon[3].classList.add("fa-sort-alt");
-  icon[3].style.color = "";
-  icon[4].classList.remove("fa-sort-amount-down-alt");
-  icon[4].classList.remove("fa-sort-amount-down");
-  icon[4].classList.add("fa-sort-alt");
-  icon[4].style.color = "";
-
+  changeSortIcon(1, dir);
   sortSerial();
 }
 
@@ -368,10 +339,8 @@ function sortTable(n) {
     y,
     shouldSwitch,
     dir,
-    icon,
     switchcount = 0;
   table = document.getElementById("state-table");
-  icon = document.getElementsByClassName("sort-icon");
   switching = true;
   dir = "desc";
   while (switching) {
@@ -404,118 +373,28 @@ function sortTable(n) {
       }
     }
   }
-  if (n == 2) {
-    if (dir == "desc") {
-      icon[1].classList.remove("fa-sort-amount-down-alt");
-      icon[1].classList.add("fa-sort-amount-down");
-    } else if (dir == "asc") {
-      icon[1].classList.remove("fa-sort-amount-down");
-      icon[1].classList.add("fa-sort-amount-down-alt");
-    }
-    icon[1].style.color = "#bc6e0d";
-    icon[0].classList.remove("fa-sort-alpha-down-alt");
-    icon[0].classList.remove("fa-sort-alpha-down");
-    icon[0].classList.add("fa-sort-alt");
-    icon[0].style.color = "";
-    icon[2].classList.remove("fa-sort-amount-down-alt");
-    icon[2].classList.remove("fa-sort-amount-down");
-    icon[2].classList.add("fa-sort-alt");
-    icon[2].style.color = "";
-    icon[3].classList.remove("fa-sort-amount-down-alt");
-    icon[3].classList.remove("fa-sort-amount-down");
-    icon[3].classList.add("fa-sort-alt");
-    icon[3].style.color = "";
-    icon[4].classList.remove("fa-sort-amount-down-alt");
-    icon[4].classList.remove("fa-sort-amount-down");
-    icon[4].classList.add("fa-sort-alt");
-    icon[4].style.color = "";
-  }
-  if (n == 4) {
-    if (dir == "desc") {
-      icon[2].classList.remove("fa-sort-amount-down-alt");
-      icon[2].classList.add("fa-sort-amount-down");
-    } else if (dir == "asc") {
-      icon[2].classList.remove("fa-sort-amount-down");
-      icon[2].classList.add("fa-sort-amount-down-alt");
-    }
-    icon[2].style.color = "#084298";
-    icon[0].classList.remove("fa-sort-alpha-down-alt");
-    icon[0].classList.remove("fa-sort-alpha-down");
-    icon[0].classList.add("fa-sort-alt");
-    icon[0].style.color = "";
-    icon[1].classList.remove("fa-sort-amount-down-alt");
-    icon[1].classList.remove("fa-sort-amount-down");
-    icon[1].classList.add("fa-sort-alt");
-    icon[1].style.color = "";
-    icon[3].classList.remove("fa-sort-amount-down-alt");
-    icon[3].classList.remove("fa-sort-amount-down");
-    icon[3].classList.add("fa-sort-alt");
-    icon[3].style.color = "";
-    icon[4].classList.remove("fa-sort-amount-down-alt");
-    icon[4].classList.remove("fa-sort-amount-down");
-    icon[4].classList.add("fa-sort-alt");
-    icon[4].style.color = "";
-  }
-  if (n == 5) {
-    if (dir == "desc") {
-      icon[3].classList.remove("fa-sort-amount-down-alt");
-      icon[3].classList.add("fa-sort-amount-down");
-    } else if (dir == "asc") {
-      icon[3].classList.remove("fa-sort-amount-down");
-      icon[3].classList.add("fa-sort-amount-down-alt");
-    }
-    icon[3].style.color = "#258b44";
-    icon[0].classList.remove("fa-sort-alpha-down-alt");
-    icon[0].classList.remove("fa-sort-alpha-down");
-    icon[0].classList.add("fa-sort-alt");
-    icon[0].style.color = "";
-    icon[1].classList.remove("fa-sort-amount-down-alt");
-    icon[1].classList.remove("fa-sort-amount-down");
-    icon[1].classList.add("fa-sort-alt");
-    icon[1].style.color = "";
-    icon[2].classList.remove("fa-sort-amount-down-alt");
-    icon[2].classList.remove("fa-sort-amount-down");
-    icon[2].classList.add("fa-sort-alt");
-    icon[2].style.color = "";
-    icon[4].classList.remove("fa-sort-amount-down-alt");
-    icon[4].classList.remove("fa-sort-amount-down");
-    icon[4].classList.add("fa-sort-alt");
-    icon[4].style.color = "";
-  }
-  if (n == 7) {
-    if (dir == "desc") {
-      icon[4].classList.remove("fa-sort-amount-down-alt");
-      icon[4].classList.add("fa-sort-amount-down");
-    } else if (dir == "asc") {
-      icon[4].classList.remove("fa-sort-amount-down");
-      icon[4].classList.add("fa-sort-amount-down-alt");
-    }
-    icon[4].style.color = "#c70011";
-    icon[0].classList.remove("fa-sort-alpha-down-alt");
-    icon[0].classList.remove("fa-sort-alpha-down");
-    icon[0].classList.add("fa-sort-alt");
-    icon[0].style.color = "";
-    icon[1].classList.remove("fa-sort-amount-down-alt");
-    icon[1].classList.remove("fa-sort-amount-down");
-    icon[1].classList.add("fa-sort-alt");
-    icon[1].style.color = "";
-    icon[2].classList.remove("fa-sort-amount-down-alt");
-    icon[2].classList.remove("fa-sort-amount-down");
-    icon[2].classList.add("fa-sort-alt");
-    icon[2].style.color = "";
-    icon[3].classList.remove("fa-sort-amount-down-alt");
-    icon[3].classList.remove("fa-sort-amount-down");
-    icon[3].classList.add("fa-sort-alt");
-    icon[3].style.color = "";
-  }
+  changeSortIcon(n, dir)
   sortSerial();
 }
 
-function hoverState(state) {
-  var statename;
+function hoverStateData(state, data, map) {
+  stateId = state.replace(/ /g, "").toLowerCase();
+  const stateMapDOM = document.getElementById(stateId);
+  stateMapDOM.onmousemove = function () {
+    mapStateNameDOM.innerHTML = state;
+    mapStateNumberDOM.innerHTML = data;
+  };
+  stateMapDOM.onmouseout = function () {
+    mapStateNameDOM.innerHTML = "India";
+    document.querySelector(
+      ".map-state-number"
+    ).innerHTML = document.getElementById("india-" + map).textContent;
+  };
+}
 
+function hoverState(state) {
   for (i = 0; i < stateName.length; i++) {
-    statename = stateName[i].innerHTML.replace(/ /g, "").toLowerCase();
+    const statename = stateName[i].innerHTML.replace(/ /g, "").toLowerCase();
     if (state == statename) {
       sname = stateName[i].textContent;
       confirmed = totalConfirmed[i].textContent;
@@ -525,60 +404,10 @@ function hoverState(state) {
       break;
     }
   }
-
-  stateMapDOM = document.getElementById(state);
-
-  if (activeMap == "C") {
-    stateMapDOM.onmousemove = function () {
-      mapStateNameDOM.innerHTML = sname;
-      mapStateNumberDOM.innerHTML = confirmed;
-    };
-    stateMapDOM.onmouseout = function () {
-      mapStateNameDOM.innerHTML = "India";
-      document.querySelector(
-        ".map-state-number"
-      ).innerHTML = document.getElementById("india-confirmed").textContent;
-    };
-  }
-
-  if (activeMap == "A") {
-    stateMapDOM.onmousemove = function () {
-      mapStateNameDOM.innerHTML = sname;
-      mapStateNumberDOM.innerHTML = active;
-    };
-    stateMapDOM.onmouseout = function () {
-      mapStateNameDOM.innerHTML = "India";
-      mapStateNumberDOM.innerHTML = document.getElementById(
-        "india-active"
-      ).textContent;
-    };
-  }
-
-  if (activeMap == "R") {
-    stateMapDOM.onmousemove = function () {
-      mapStateNameDOM.innerHTML = sname;
-      mapStateNumberDOM.innerHTML = recovered;
-    };
-    stateMapDOM.onmouseout = function () {
-      mapStateNameDOM.innerHTML = "India";
-      mapStateNumberDOM.innerHTML = document.getElementById(
-        "india-recovered"
-      ).textContent;
-    };
-  }
-
-  if (activeMap == "D") {
-    stateMapDOM.onmousemove = function () {
-      mapStateNameDOM.innerHTML = sname;
-      mapStateNumberDOM.innerHTML = deceased;
-    };
-    stateMapDOM.onmouseout = function () {
-      mapStateNameDOM.innerHTML = "India";
-      mapStateNumberDOM.innerHTML = document.getElementById(
-        "india-deceased"
-      ).textContent;
-    };
-  }
+  if (activeMap == "C") hoverStateData(sname, confirmed, "confirmed");
+  if (activeMap == "A") hoverStateData(sname, active, "active");
+  if (activeMap == "R") hoverStateData(sname, recovered, "recovered");
+  if (activeMap == "D") hoverStateData(sname, deceased, "deceased");
 }
 
 function changeChart(c) {
@@ -610,3 +439,12 @@ var tooltipTriggerList = [].slice.call(
 var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
   return new bootstrap.Tooltip(tooltipTriggerEl);
 });
+
+function changeSortIcon(n, dir) {
+  const icon = document.getElementsByClassName("sort-icon");
+  const th = [1, 2, 4, 5, 7];
+  var n = th.indexOf(n);
+  for (i = 0; i < icon.length; i++) icon[i].className = "fas fa-sort sort-icon";
+  if (dir == "desc") icon[n].className = "fas fa-caret-down sort-icon";
+  else if (dir == "asc") icon[n].className = "fas fa-caret-up sort-icon";
+}

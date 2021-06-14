@@ -19,7 +19,7 @@
     <a href="/">COVID-19 Tracker</a>
   </nav>
 
-  <div class="container">
+  <div class="container pb-5">
 
     <!--Search Bar-->
     <div class="row pt-3">
@@ -172,19 +172,19 @@
             <tr>
               <th class="table-head" scope="col">#</th>
               <th class="table-head" scope="col" onclick="sortState()">
-                State / UT<i class="fas fa-sort-alt sort-icon"></i>
+                State / UT<i class="sort-icon fas fa-sort"></i>
               </th>
-              <th class="table-head" scope="col" onclick="sortTable(2)" ondblclick="sortTable(3)" colspan="2">
-                Confirmed<i class="fas fa-sort-amount-down sort-icon" style="color: #bc6e0d;"></i>
+              <th class="table-head" scope="col" onclick="sortTable(2)" colspan="2">
+                Confirmed<i class="sort-icon fas fa-caret-down"></i>
               </th>
               <th class="table-head" scope="col" onclick="sortTable(4)">
-                Active<i class="fas fa-sort-alt sort-icon"></i>
+                Active<i class="sort-icon fas fa-sort"></i>
               </th>
-              <th class="table-head" scope="col" onclick="sortTable(5)" ondblclick="sortTable(6)" colspan="2">
-                Recovered<i class="fas fa-sort-alt sort-icon"></i>
+              <th class="table-head" scope="col" onclick="sortTable(5)" colspan="2">
+                Recovered<i class="sort-icon fas fa-sort"></i>
               </th>
-              <th class="table-head" scope="col" onclick="sortTable(7)" ondblclick="sortTable(8)" colspan="2">
-                Deaceased<i class="fas fa-sort-alt sort-icon"></i>
+              <th class="table-head" scope="col" onclick="sortTable(7)" colspan="2">
+                Deaceased<i class="sort-icon fas fa-sort"></i>
               </th>
               <th class="table-head" scope="col">Last Updated</th>
             </tr>
@@ -272,17 +272,25 @@
         </tbody>
       </table>
     </div>
-    <script>
-      var districts = {{ districts | safe }};
-      var districtState = {{ districtstate | safe }};
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script
-      src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns@next/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
-    <script src="{{url_for('static', filename='js/bootstrap.bundle.js')}}"></script>
-    <script src="{{url_for('static', filename='js/chart.js')}}"></script>
-    <script src="{{url_for('static', filename='js/script.js')}}"></script>
-    <script src="{{url_for('static', filename='js/search.js')}}"></script>
+  </div>
+  <footer class="p-3 text-center">
+    <div class="footer-links">
+      <a href="/" class="px-1">COVID-19 Tracker</a>
+      <a href="https://api.covid19india.org/" class="px-1"><i class="fas fa-database"></i></a>
+    </div>
+    <span style="font-size: small;">Made by <a href="https://github.com/ujjawal30">Ujjawal Gupta</a></span>
+  </footer>
+  <script>
+    var districts = {{ districts | safe }};
+    var districtState = {{ districtstate | safe }};
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script
+    src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns@next/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
+  <script src="{{url_for('static', filename='js/bootstrap.bundle.js')}}"></script>
+  <script src="{{url_for('static', filename='js/chart.js')}}"></script>
+  <script src="{{url_for('static', filename='js/script.js')}}"></script>
+  <script src="{{url_for('static', filename='js/search.js')}}"></script>
 </body>
 
 </html>

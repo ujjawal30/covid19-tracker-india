@@ -1,12 +1,14 @@
-.container {
-  font-weight: bold;
+*{
   font-family: "Product Sans", sans-serif;
 }
 
+.container {
+  font-weight: bold;
+}
+
 nav {
-  font-family: "Product Sans", sans-serif;
   font-weight: 900 !important;
-  background-color: rgb(215, 215, 215);
+  background-color: #d7d7d7;
 }
 
 .search-bar {
@@ -333,4 +335,10 @@ tr {
 
 ::-webkit-scrollbar-thumb:hover {
   background: #8d8d8d;
+}
+
+footer {
+  color: black;
+  background-color: #d7d7d7;
+  font-weight: bold;
 }
