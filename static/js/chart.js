@@ -146,6 +146,7 @@ function viewCharts(activeMap, chartView) {
       scales: {
         x: {
           type: "time",
+          offset: false,
           time: {
             displayFormats: {
               month: "MMM yyyy",

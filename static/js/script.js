@@ -1,32 +1,25 @@
-var stateName, totalConfirmed, state, confirmed, activeMap, chartView;
-var stateMapDOM,
-  confirmedDOM,
-  activeDOM,
-  recoveredDOM,
-  deceasedDOM,
-  mapStateNameDOM,
-  mapStateNumberDOM,
-  mapStateMapDOM;
+var state, confirmed, activeMap, chartView;
+var stateMapDOM;
 var legendColorDOM, legendNumberDOM;
 
-stateName = document.querySelectorAll(".state-name");
-totalConfirmed = document.querySelectorAll(".confirmed");
-totalActive = document.querySelectorAll(".active");
-totalRecovered = document.querySelectorAll(".recovered");
-totalDeceased = document.querySelectorAll(".deceased");
+const stateName = document.querySelectorAll(".state-name");
+const totalConfirmed = document.querySelectorAll(".confirmed");
+const totalActive = document.querySelectorAll(".active");
+const totalRecovered = document.querySelectorAll(".recovered");
+const totalDeceased = document.querySelectorAll(".deceased");
 
-confirmedDOM = document.querySelector(".confirmed-card");
-activeDOM = document.querySelector(".active-card");
-recoveredDOM = document.querySelector(".recovered-card");
-deceasedDOM = document.querySelector(".deceased-card");
+const confirmedDOM = document.querySelector(".confirmed-card");
+const activeDOM = document.querySelector(".active-card");
+const recoveredDOM = document.querySelector(".recovered-card");
+const deceasedDOM = document.querySelector(".deceased-card");
 
-mapStateNameDOM = document.querySelector(".map-state-name");
-mapStateNumberDOM = document.querySelector(".map-state-number");
-mapStateMapDOM = document.querySelector(".map-state-map");
+const mapStateNameDOM = document.querySelector(".map-state-name");
+const mapStateNumberDOM = document.querySelector(".map-state-number");
+const mapStateMapDOM = document.querySelector(".map-state-map");
 
-legendDataDOM = document.getElementsByClassName("legend-data");
+const legendDataDOM = document.getElementsByClassName("legend-data");
 
-localStorage.setItem("chartView", 0);
+changeChart(90);
 
 viewConfirmed();
 
@@ -34,7 +27,8 @@ function viewConfirmed() {
   for (i = 0; i < stateName.length; i++) {
     state = stateName[i].innerHTML.replace(/ /g, "").toLowerCase();
     confirmed = removeCommas(totalConfirmed[i].textContent);
-    stateMapDOM = document.getElementById(state);
+    const stateMapDOM = document.getElementById(state);
+
     document.getElementById("borders").style.stroke = "#bc6e0d";
     stateMapDOM.style.stroke = "#bc6e0d";
     if (confirmed > 5000000) {
@@ -50,14 +44,10 @@ function viewConfirmed() {
     }
   }
 
-  activeDOM.classList.remove("shadow");
-  activeDOM.classList.add("shadow-sm");
-  recoveredDOM.classList.remove("shadow");
-  recoveredDOM.classList.add("shadow-sm");
-  deceasedDOM.classList.remove("shadow");
-  deceasedDOM.classList.add("shadow-sm");
-  confirmedDOM.classList.remove("shadow-sm");
-  confirmedDOM.classList.add("shadow");
+  activeDOM.classList.replace("shadow", "shadow-sm")
+  recoveredDOM.classList.replace("shadow", "shadow-sm");
+  deceasedDOM.classList.replace("shadow", "shadow-sm");
+  confirmedDOM.classList.replace("shadow-sm", "shadow");
 
   mapStateNameDOM.classList.remove("new-active");
   mapStateNameDOM.classList.remove("new-recovered");
@@ -100,30 +90,27 @@ function viewActive() {
   for (i = 0; i < stateName.length; i++) {
     state = stateName[i].innerHTML.replace(/ /g, "").toLowerCase();
     active = removeCommas(totalActive[i].textContent);
-    stateMapDOM = document.getElementById(state);
+    const stateMapDOM = document.getElementById(state);
+
     document.getElementById("borders").style.stroke = "#084298";
     stateMapDOM.style.stroke = "#084298";
-    if (active > 500000) {
-      stateMapDOM.style.fill = "#0a4fb6"; //"#004dc0"; /*color:#FA8607*/
-    } else if (active <= 500000 && active > 100000) {
-      stateMapDOM.style.fill = "#498ff5"; //"#7596c5";
+    if (active > 100000) {
+      stateMapDOM.style.fill = "#0d69f2"; //"#004dc0"; /*color:#FA8607*/
     } else if (active <= 100000 && active > 50000) {
-      stateMapDOM.style.fill = "#9ac1fa"; //"#b2c4de";
+      stateMapDOM.style.fill = "#3d87f5"; //"#7596c5";
     } else if (active <= 50000 && active > 10000) {
-      stateMapDOM.style.fill = "#c2dafc"; //"#e0e7f2";
+      stateMapDOM.style.fill = "#6ea5f7"; //"#b2c4de";
+    } else if (active <= 10000 && active > 5000) {
+      stateMapDOM.style.fill = "#9ec3fa"; //"#e0e7f2";
     } else {
-      stateMapDOM.style.fill = "#ebf3fe"; //"#f4f6fc";
+      stateMapDOM.style.fill = "#cfe1fc"; //"#f4f6fc";
     }
   }
 
-  confirmedDOM.classList.remove("shadow");
-  confirmedDOM.classList.add("shadow-sm");
-  recoveredDOM.classList.remove("shadow");
-  recoveredDOM.classList.add("shadow-sm");
-  deceasedDOM.classList.remove("shadow");
-  deceasedDOM.classList.add("shadow-sm");
-  activeDOM.classList.remove("shadow-sm");
-  activeDOM.classList.add("shadow");
+  confirmedDOM.classList.replace("shadow", "shadow-sm");
+  recoveredDOM.classList.replace("shadow", "shadow-sm");
+  deceasedDOM.classList.replace("shadow", "shadow-sm");
+  activeDOM.classList.replace("shadow-sm", "shadow")
 
   mapStateNameDOM.classList.remove("new-confirmed");
   mapStateNameDOM.classList.remove("new-recovered");
@@ -140,17 +127,17 @@ function viewActive() {
   mapStateMapDOM.style.color = "#084298";
   mapStateMapDOM.style.border = "#084298 dashed 2px";
 
-  legendDataDOM[0].style.backgroundColor = "#0a4fb6";
-  legendDataDOM[1].style.backgroundColor = "#498ff5";
-  legendDataDOM[2].style.backgroundColor = "#9ac1fa";
-  legendDataDOM[3].style.backgroundColor = "#c2dafc";
-  legendDataDOM[4].style.backgroundColor = "#ebf3fe";
+  legendDataDOM[0].style.backgroundColor = "#0d69f2";
+  legendDataDOM[1].style.backgroundColor = "#3d87f5";
+  legendDataDOM[2].style.backgroundColor = "#6ea5f7";
+  legendDataDOM[3].style.backgroundColor = "#9ec3fa";
+  legendDataDOM[4].style.backgroundColor = "#cfe1fc";
 
-  legendDataDOM[0].textContent = "Above 5L";
-  legendDataDOM[1].textContent = "5L - 1L";
-  legendDataDOM[2].textContent = "1L - 50K";
-  legendDataDOM[3].textContent = "50K - 10K";
-  legendDataDOM[4].textContent = "Below 10K";
+  legendDataDOM[0].textContent = "Above 1L";
+  legendDataDOM[1].textContent = "1L - 50K";
+  legendDataDOM[2].textContent = "50K - 10K";
+  legendDataDOM[3].textContent = "10K - 5K";
+  legendDataDOM[4].textContent = "Below 5K";
 
   document.getElementById("chart-daily").style.backgroundColor = "#ebf3fe";
   document.getElementById("chart-total").style.backgroundColor = "#ebf3fe";
@@ -165,7 +152,8 @@ function viewRecovered() {
   for (i = 0; i < stateName.length; i++) {
     state = stateName[i].innerHTML.replace(/ /g, "").toLowerCase();
     recovered = removeCommas(totalRecovered[i].textContent);
-    stateMapDOM = document.getElementById(state);
+    const stateMapDOM = document.getElementById(state);
+
     document.getElementById("borders").style.stroke = "#006d21";
     stateMapDOM.style.stroke = "#006d21";
     if (recovered > 5000000) {
@@ -181,14 +169,10 @@ function viewRecovered() {
     }
   }
 
-  confirmedDOM.classList.add("shadow-sm");
-  confirmedDOM.classList.remove("shadow");
-  activeDOM.classList.add("shadow-sm");
-  activeDOM.classList.remove("shadow");
-  deceasedDOM.classList.remove("shadow");
-  deceasedDOM.classList.add("shadow-sm");
-  recoveredDOM.classList.remove("shadow-sm");
-  recoveredDOM.classList.add("shadow");
+  confirmedDOM.classList.replace("shadow", "shadow-sm");
+  activeDOM.classList.replace("shadow", "shadow-sm")
+  deceasedDOM.classList.replace("shadow", "shadow-sm");
+  recoveredDOM.classList.replace("shadow-sm", "shadow");
 
   mapStateNameDOM.classList.remove("new-confirmed");
   mapStateNameDOM.classList.remove("new-active");
@@ -231,7 +215,8 @@ function viewDeceased() {
   for (i = 0; i < stateName.length; i++) {
     state = stateName[i].innerHTML.replace(/ /g, "").toLowerCase();
     deceased = removeCommas(totalDeceased[i].textContent);
-    stateMapDOM = document.getElementById(state);
+    const stateMapDOM = document.getElementById(state);
+
     document.getElementById("borders").style.stroke = "#9c000d";
     stateMapDOM.style.stroke = "#9c000d";
     if (deceased > 50000) {
@@ -246,14 +231,11 @@ function viewDeceased() {
       stateMapDOM.style.fill = "#f8e2e4";
     }
   }
-  confirmedDOM.classList.remove("shadow");
-  confirmedDOM.classList.add("shadow-sm");
-  activeDOM.classList.remove("shadow");
-  activeDOM.classList.add("shadow-sm");
-  recoveredDOM.classList.remove("shadow");
-  recoveredDOM.classList.add("shadow-sm");
-  deceasedDOM.classList.remove("shadow-sm");
-  deceasedDOM.classList.add("shadow");
+
+  confirmedDOM.classList.replace("shadow", "shadow-sm");
+  activeDOM.classList.replace("shadow", "shadow-sm")
+  recoveredDOM.classList.replace("shadow", "shadow-sm");
+  deceasedDOM.classList.replace("shadow-sm", "shadow");
 
   mapStateNameDOM.classList.remove("new-confirmed");
   mapStateNameDOM.classList.remove("new-active");
@@ -531,11 +513,6 @@ function sortTable(n) {
 
 function hoverState(state) {
   var statename;
-  stateName = document.querySelectorAll(".state-name");
-  totalConfirmed = document.querySelectorAll(".confirmed");
-  totalActive = document.querySelectorAll(".active");
-  totalRecovered = document.querySelectorAll(".recovered");
-  totalDeceased = document.querySelectorAll(".deceased");
 
   for (i = 0; i < stateName.length; i++) {
     statename = stateName[i].innerHTML.replace(/ /g, "").toLowerCase();
@@ -606,10 +583,10 @@ function hoverState(state) {
 
 function changeChart(c) {
   localStorage.setItem("chartView", c);
-  document.getElementById("chart-180").style.backgroundColor = "";
-  document.getElementById("chart-90").style.backgroundColor = "";
-  document.getElementById("chart-30").style.backgroundColor = "";
-  document.getElementById("chart-0").style.backgroundColor = "";
+  const chartDays = document.getElementsByClassName("chart-item")
+  for (const chartDay of chartDays) {
+    chartDay.style.backgroundColor = ""
+  }
   document.getElementById("chart-" + c).style.backgroundColor = "#b9b9b9";
   viewCharts(activeMap, c);
 }
