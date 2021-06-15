@@ -210,3 +210,8 @@ def search():
             state = row.State
 
     return redirect(url_for("state", state=state))
+
+
+@app.errorhandler(500)
+def pageNotFound(e):
+    return render_template("500.html"), 500 
