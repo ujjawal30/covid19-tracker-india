@@ -14,6 +14,7 @@
 
 <body class="bg-light">
 
+  <!--Navbar-->
   <nav class="h1 p-3 text-center">
     <a href="/">COVID-19 Tracker</a>
   </nav>
@@ -46,43 +47,43 @@
     <!--Head Cards (Confirmed, Active, Recovered, Deceased)-->
     <div class="row">
       <div class="col-sm-6 col-lg-3 col-6 py-4">
-        <div class="card text-center confirmed-card shadow-sm" onclick="viewConfirmed()">
-          <div class="card-header new-confirmed" style="border-radius: 10px;">
+        <div class="card text-center confirmed-case shadow-sm enabled" onclick="viewConfirmed()">
+          <div class="card-header">
             Confirmed
           </div>
           <h5 class="card-title" id="india-confirmed">{{data.0.1|numberFormat}}</h5>
-          <p style="color: #bc6e0d;">+{{data.0.2|numberFormat}}</p>
+          <p>+{{data.0.2|numberFormat}}</p>
         </div>
       </div>
       <div class="col-sm-6 col-lg-3 col-6 py-4">
-        <div class="card text-center active-card shadow" onclick="viewActive()">
-          <div class="card-header new-active" style="border-radius: 10px;">
+        <div class="card text-center active-case shadow-sm" onclick="viewActive()">
+          <div class="card-header">
             Active
           </div>
           <h5 class="card-title" id="india-active">{{data.0.3|numberFormat}}</h5>
           {% if data.0.9 >= 0 %}
-          <p style="color: #084298">+{{data.0.9|numberFormat}}</p>
+          <p>+{{data.0.9|numberFormat}}</p>
           {% else %}
-          <p style="color: #084298">{{data.0.9|numberFormat}}</p>
+          <p>{{data.0.9|numberFormat}}</p>
           {% endif %}
         </div>
       </div>
       <div class="col-sm-6 col-lg-3 col-6 py-4">
-        <div class="card text-center recovered-card shadow-sm" onclick="viewRecovered()">
-          <div class="card-header new-recovered" style="border-radius: 10px;">
+        <div class="card text-center recovered-case shadow-sm" onclick="viewRecovered()">
+          <div class="card-header">
             Recovered
           </div>
           <h5 class="card-title" id="india-recovered">{{data.0.4|numberFormat}}</h5>
-          <p style="color: #006d21;">+{{data.0.5|numberFormat}}</p>
+          <p>+{{data.0.5|numberFormat}}</p>
         </div>
       </div>
       <div class="col-sm-6 col-lg-3 col-6 py-4">
-        <div class="card text-center deceased-card shadow-sm" onclick="viewDeceased()">
-          <div class="card-header new-deceased" style="border-radius: 10px;">
+        <div class="card text-center deceased-case shadow-sm" onclick="viewDeceased()">
+          <div class="card-header">
             Deceased
           </div>
           <h5 class="card-title" id="india-deceased">{{data.0.6|numberFormat}}</h5>
-          <p style="color: #9c000d;">+{{data.0.7|numberFormat}}</p>
+          <p>+{{data.0.7|numberFormat}}</p>
         </div>
       </div>
     </div>
@@ -201,7 +202,7 @@
                 {{d.1|numberFormat}}
               </td>
               {% if d.2 != 0 %}
-              <td class="new-confirmed">
+              <td class="confirmed-case">
                 +{{d.2|numberFormat}}
               </td>
               {% else %}
@@ -215,7 +216,7 @@
                 {{d.4|numberFormat}}
               </td>
               {% if d.5 != 0 %}
-              <td class="new-recovered">
+              <td class="recovered-case">
                 +{{d.5|numberFormat}}
               </td>
               {% else %}
@@ -226,7 +227,7 @@
                 {{d.6|numberFormat}}
               </td>
               {% if d.7 != 0 %}
-              <td class="new-deceased">
+              <td class="deceased-case">
                 +{{d.7|numberFormat}}
               </td>
               {% else %}
@@ -271,14 +272,18 @@
         </tbody>
       </table>
     </div>
+
   </div>
+
+  <!--Footer-->
   <footer class="p-3 text-center">
     <div class="footer-links">
-      <a href="/" class="px-1">COVID-19 Tracker</a>
+      <a href="https://github.com/ujjawal30/covid19-tracker-india" class="px-1">COVID-19 Tracker</a>
       <a href="https://api.covid19india.org/" class="px-1"><i class="fas fa-database"></i></a>
     </div>
     <span style="font-size: small;">Made by <a href="https://github.com/ujjawal30">Ujjawal Gupta</a></span>
   </footer>
+
   <script>
     var districts = {{ districts | safe }};
     var districtState = {{ districtstate | safe }};
@@ -289,6 +294,7 @@
   <script src="{{url_for('static', filename='js/chart.js')}}"></script>
   <script src="{{url_for('static', filename='js/script.js')}}"></script>
   <script src="{{url_for('static', filename='js/search.js')}}"></script>
+
 </body>
 
 </html>
