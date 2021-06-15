@@ -31,7 +31,7 @@ def calcElapsedTime(update_time):
 
 @app.template_filter()
 def numberFormat(value):
-    locale.setlocale(locale.LC_NUMERIC, "hi_IN")
+    locale.setlocale(locale.LC_NUMERIC, "en_IN")
     return locale.format("%d", value, grouping=True)
 
 
