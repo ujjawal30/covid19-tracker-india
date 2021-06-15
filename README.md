@@ -2,6 +2,8 @@
 
 COVID-19 Tracker app that shows real time COVID-19 statistics in different states and districts across India. It fetches data from the API via [Flask](https://flask.palletsprojects.com/en/2.0.x/).
 
+Demo: [COV19India-Tracker](https://cov19india-tracker.herokuapp.com/)
+
 ## Languages/Libraries used
 
 - [Python](http://python.org/)
