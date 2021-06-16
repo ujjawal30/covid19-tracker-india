@@ -10,6 +10,7 @@ const syncIcon = "<i class='fas fa-sync fa-sm'></i>";
 
 changeChart(90);
 viewConfirmed();
+convertDateTime();
 
 function viewMaps(title, colors, range, accent, background, legendText) {
   var state, data, stateMapDOM
@@ -66,7 +67,7 @@ function enableCard(cardIndex) {
 }
 
 function viewConfirmed() {
-  colors = ["#bc6e0d", "#eca145", "#f1bc7a", "#f7d7af", "#fcf1e4"];
+  colors = ["#d77d0f", "#f2a240", "#f5b970", "#f8d0a0", "#fce8cf"];
   range = [5000000, 1000000, 500000, 100000];
   legendText = ["Above 50L", "50L - 10L", "10L - 5L", "5L - 1L", "Below 1L"];
   accent = "#bc6e0d";
@@ -98,7 +99,7 @@ function viewActive() {
 }
 
 function viewRecovered() {
-  colors = ["#006d21", "#45a161", "#85be97", "#b6d8c0", "#e6f2ea"];
+  colors = ["#40903c", "#62bb5d", "#85ca81", "#a8d9a5", "#cbe8c9"];
   range = [5000000, 1000000, 500000, 100000];
   legendText = ["Above 50L", "50L - 10L", "10L - 5L", "5L - 1L", "Below 1L"];
   accent = "#006d21";
@@ -114,7 +115,7 @@ function viewRecovered() {
 }
 
 function viewDeceased() {
-  colors = ["#9c000d", "#d33845", "#df717a", "#ecaaaf", "#f8e2e4"];
+  colors = ["#cc0011", "#ff3344", "#ff6673", "#ff99a2", "#ffccd0"];
   range = [50000, 10000, 5000, 1000];
   legendText = ["Above 50K", "50K - 10K", "10K - 5K", "5K - 1K", "Below 1K"];
   accent = "#9c000d";
@@ -309,3 +310,46 @@ var tooltipTriggerList = [].slice.call(
 var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
   return new bootstrap.Tooltip(tooltipTriggerEl);
 });
+
+function convertDateTime() {
+  const time = document.getElementsByClassName("update-time");
+  const currentTime = new Date();
+  var updateTime, delta, period;
+
+  const options = {  
+    month: "short", day: "numeric", hour: "2-digit", minute: "2-digit"  
+  };
+  updateTime = new Date(time[0].textContent);
+  time[0].textContent = updateTime.toLocaleTimeString("en-us", options)
+
+  for(i = 1; i < time.length; i++) {
+    updateTime = new Date(time[i].textContent)
+    delta = Math.abs(updateTime - currentTime) / 1000;
+
+    period = Math.floor(delta / 86400);
+    if (period > 0) {
+      time[i].textContent = period + " day ago";
+      continue;
+    }
+    delta -= period * 86400;
+
+    period = Math.floor(delta / 3600) % 24;
+    if (period === 1) {
+      time[i].textContent = period + " hour ago";
+      continue;
+    } else if (period > 1) {
+      time[i].textContent = period + " hours ago";
+      continue;
+    }
+    delta -= period * 3600;
+
+    period = Math.floor(delta / 60) % 60;
+    if (period === 1) {
+      time[i].textContent = period + " minute ago";
+      continue;
+    } else if (period > 1) {
+      time[i].textContent = period + " minutes ago";
+      continue;
+    }
+  }
+}

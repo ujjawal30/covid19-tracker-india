@@ -26,7 +26,7 @@
     </div>
   </div>
 
-  <div class="update-time">Updated {{data.0.8}}</div>
+  <div class="update">Updated on <span class="update-time">{{data.0.8}}</span></div>
 
   <!--Head Cards (Confirmed, Active, Recovered, Deceased)-->
   <div class="row">
@@ -177,7 +177,7 @@
           {% for d in data %}
           {% if d.1 != 0 %}
           {% if d.0 != 'Total' %}
-          <tr id="data">
+          <tr>
             <td class="table-item serial" style="font-weight: normal;">{{loop.index-1}}</td>
             <td class="table-item">
               <a href="state/{{d.0}}" class="state-name">{{d.0}}</a>
@@ -218,7 +218,7 @@
             <td class="table-item">
             </td>
             {% endif %}
-            <td class="table-item" id="update" style="font-weight: normal;">{{d.8}}</td>
+            <td class="table-item update-time" style="font-weight: normal; text-align: left;">{{d.8}}</td>
           </tr>
           {% endif %}
           {% endif %}

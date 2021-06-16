@@ -1,5 +1,10 @@
+@font-face {
+  font-family: Product Sans;
+  src: url(../ProductSans-Regular.ttf);
+}
+
 *{
-  font-family: "Product Sans", sans-serif;
+  font-family: "Product Sans";
   margin: 0%;
 }
 
@@ -54,9 +59,13 @@ nav {
   box-shadow: none;
 }
 
+.update {
+  text-align: center;
+  font-weight: normal;
+}
+
 .update-time {
   font-weight: normal !important;
-  text-align: center;
 }
 
 a {
@@ -96,7 +105,7 @@ tr {
 
 .table-head {
   position: sticky;
-  top: 0;
+  top: 0 !important;
   background-color: #b9b9b9 !important;
   border-radius: 5px !important;
   cursor: pointer;
@@ -199,6 +208,10 @@ tr {
   display: block;
   margin: auto;
   max-width: 500px;
+}
+
+.state-map {
+  fill: #b6b6b6;
 }
 
 .state-map:hover {

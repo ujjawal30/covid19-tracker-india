@@ -7,33 +7,15 @@ import pandas
 app = Flask(__name__)
 
 
-def calcElapsedTime(update_time):
-    elapsed_time = ""
-    updated_at = datetime.strptime(update_time, "%d/%m/%Y %H:%M:%S")
-    elapsed = str(datetime.now() - updated_at)
-    if "," in elapsed:
-        days = elapsed.split(",")[0]
-        elapsed_time = days + " ago"
-    else:
-        hour = elapsed.split(":")[0]
-        if hour == "0":
-            minute = elapsed.split(":")[1]
-            elapsed_time = minute + " minutes ago"
-        else:
-            hour = elapsed.split(":")[0]
-            if hour == "1":
-                elapsed_time = hour + " hour ago"
-            else:
-                elapsed_time = hour + " hours ago"
-
-    return elapsed_time
-
-
 @app.template_filter()
 def numberFormat(value):
     locale.setlocale(locale.LC_NUMERIC, "en_IN")
     return locale.format("%d", value, grouping=True)
 
+
+def formatDateTime(time):
+    time = datetime.strptime(time, "%d/%m/%Y %H:%M:%S")
+    return time.strftime("%Y-%m-%d %H:%M:%S")
 
 @app.route("/")
 def index():
@@ -76,8 +58,7 @@ def index():
     districtstate = []
 
     for row in states_data.itertuples():
-        elapsed_time = calcElapsedTime(row.Last_Updated_Time)
-        print(elapsed_time)
+        updated_at = formatDateTime(row.Last_Updated_Time)
         delta_active = row.Delta_Confirmed - (row.Delta_Recovered + row.Delta_Deaths)
         statedata = [
             row.State,
@@ -88,7 +69,7 @@ def index():
             row.Delta_Recovered,
             row.Deaths,
             row.Delta_Deaths,
-            elapsed_time,
+            updated_at,
             delta_active,
         ]
         statelist.append(statedata)
@@ -145,7 +126,7 @@ def state(state):
     statedata = []
 
     for row in states_data.itertuples():
-        elapsed_time = calcElapsedTime(row.Last_Updated_Time)
+        elapsed_time = formatDateTime(row.Last_Updated_Time)
         delta_active = row.Delta_Confirmed - (row.Delta_Recovered + row.Delta_Deaths)
         statedata = [
             row.State,

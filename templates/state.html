@@ -6,12 +6,12 @@
 
 {% block container %}
     <h3 class="pt-3" style="text-align: center;"><span class="state-page-name">{{state.0}}</span> Statistics</h3>
-    <div class="update-time">Updated {{state.8}}</div>
+    <div class="update">Updated on <span class="update-time">{{state.8}}</span></div>
 
     <!--Head Cards (Confirmed, Active, Recovered, Deceased)-->
     <div class="row">
       <div class="col-sm-6 col-lg-3 col-6 py-4">
-        <div class="card text-center confirmed-case">
+        <div class="card text-center confirmed-case shadow-sm">
           <div class="card-header">
             Confirmed
           </div>
@@ -20,7 +20,7 @@
         </div>
       </div>
       <div class="col-sm-6 col-lg-3 col-6 py-4">
-        <div class="card text-center active-case">
+        <div class="card text-center active-case shadow-sm">
           <div class="card-header">
             Active
           </div>
@@ -33,7 +33,7 @@
         </div>
       </div>
       <div class="col-sm-6 col-lg-3 col-6 py-4">
-        <div class="card text-center recovered-case">
+        <div class="card text-center recovered-case shadow-sm">
           <div class="card-header">
             Recovered
           </div>
@@ -42,7 +42,7 @@
         </div>
       </div>
       <div class="col-sm-6 col-lg-3 col-6 py-4">
-        <div class="card text-center deceased-case">
+        <div class="card text-center deceased-case shadow-sm">
           <div class="card-header">
             Deaths
           </div>
