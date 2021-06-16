@@ -77,6 +77,7 @@ def index():
 
     for row in states_data.itertuples():
         elapsed_time = calcElapsedTime(row.Last_Updated_Time)
+        print(elapsed_time)
         delta_active = row.Delta_Confirmed - (row.Delta_Recovered + row.Delta_Deaths)
         statedata = [
             row.State,
