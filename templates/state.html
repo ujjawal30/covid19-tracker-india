@@ -6,10 +6,8 @@
 
 {% block container %}
 
-  <div class="">
-    <h3 class="p-2 my-3 state-page-name">{{state.0}}</h3>
-    <div class="update">Updated on <span class="update-time">{{state.8}}</span></div>
-  </div>
+  <h3 class="p-2 my-3 state-page-name">{{state.0}}</h3>
+  <div class="update">Updated on <span class="update-time">{{state.8}}</span></div>
 
   <!--Head Cards (Confirmed, Active, Recovered, Deceased)-->
   <div class="row">
@@ -116,9 +114,7 @@
           {% if d.1 != 0 %}
           <tr id="data">
             <td class="table-item serial" style="font-weight: normal;">{{loop.index}}</td>
-            <td class="table-item">
-              <a href="state/{{d.9}}">{{d.0}}</a>
-            </td>
+            <td class="table-item">{{d.0}}</td>
             <td class="table-item">
               {{d.1|numberFormat}}
             </td>

@@ -330,7 +330,8 @@ function convertDateTime() {
     minute: "2-digit",
   };
   updateTime = new Date(time[0].textContent);
-  time[0].innerHTML = "<b>" + updateTime.toLocaleTimeString("en-us", options) + "</b>";
+  time[0].innerHTML =
+    "<b>" + updateTime.toLocaleTimeString("en-us", options) + "</b>";
 
   for (i = 1; i < time.length; i++) {
     updateTime = new Date(time[i].textContent);

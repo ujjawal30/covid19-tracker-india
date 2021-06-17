@@ -3,7 +3,7 @@
   src: url(../ProductSans-Regular.ttf);
 }
 
-*{
+* {
   font-family: "Product Sans";
   margin: 0%;
 }
@@ -375,26 +375,26 @@ footer {
   color: rgb(46, 46, 46) !important;
 }
 
-.footer-bar a:hover{
+.footer-bar a:hover {
   color: blue !important;
 }
 
-.footer-social .fa-github:hover{
+.footer-social .fa-github:hover {
   color: #24292e !important;
 }
 
-.footer-social .fa-linkedin:hover{
+.footer-social .fa-linkedin:hover {
   color: #0a66c2 !important;
 }
 
-.footer-social .fa-envelope:hover{
+.footer-social .fa-envelope:hover {
   color: #ff2600 !important;
 }
 
-.footer-social .fa-instagram:hover{
+.footer-social .fa-instagram:hover {
   color: #f15360 !important;
 }
 
-.footer-social .fa-twitter:hover{
+.footer-social .fa-twitter:hover {
   color: #1da1f2 !important;
 }
