@@ -8,8 +8,8 @@ const mapStateMapDOM = document.querySelector(".map-state-map");
 
 const syncIcon = "<i class='fas fa-sync fa-sm'></i>";
 
-viewConfirmed();
 convertDateTime();
+viewConfirmed();
 changeChart(90);
 
 function viewMaps(title, colors, range, accent, background, legendText) {
@@ -72,10 +72,10 @@ function viewMaps(title, colors, range, accent, background, legendText) {
 function enableCard(cardIndex) {
   const cards = document.getElementsByClassName("card");
   const current = document.getElementsByClassName("enabled");
-  if (!isNaN(current)) {
+  try {
     current[0].className = current[0].className.replace(" enabled", "");
     cards[cardIndex].className += " enabled";
-  }
+  } catch (error) {}
 }
 
 function viewConfirmed() {
