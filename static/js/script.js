@@ -8,62 +8,74 @@ const mapStateMapDOM = document.querySelector(".map-state-map");
 
 const syncIcon = "<i class='fas fa-sync fa-sm'></i>";
 
-changeChart(90);
 viewConfirmed();
 convertDateTime();
+changeChart(90);
 
 function viewMaps(title, colors, range, accent, background, legendText) {
-  var state, data, stateMapDOM
-  const map = title.toLowerCase();
-  const totalData = document.getElementsByClassName(map);
-  const legendDataDOM = document.getElementsByClassName("legend-data");
+  try {
+    var state, data, stateMapDOM;
+    const map = title.toLowerCase();
+    const totalData = document.getElementsByClassName(map);
+    const legendDataDOM = document.getElementsByClassName("legend-data");
 
-  for (i = 0; i < stateName.length; i++) {
+    for (i = 0; i < stateName.length; i++) {
+      state = stateName[i].innerHTML.replace(/ /g, "").toLowerCase();
+      data = removeCommas(totalData[i].textContent);
+      stateMapDOM = document.getElementById(state);
 
-    state = stateName[i].innerHTML.replace(/ /g, "").toLowerCase();
-    data = removeCommas(totalData[i].textContent);
-    stateMapDOM = document.getElementById(state);
+      document.getElementById("borders").style.stroke = accent;
+      stateMapDOM.style.stroke = accent;
 
-    document.getElementById("borders").style.stroke = accent;
-    stateMapDOM.style.stroke = accent;
-
-    if (data > range[0]) {
-      stateMapDOM.style.fill = colors[0];
-    } else if (data <= range[0] && data > range[1]) {
-      stateMapDOM.style.fill = colors[1];
-    } else if (data <= range[1] && data > range[2]) {
-      stateMapDOM.style.fill = colors[2];
-    } else if (data <= range[2] && data > range[3]) {
-      stateMapDOM.style.fill = colors[3];
-    } else {
-      stateMapDOM.style.fill = colors[4];
+      if (data > range[0]) {
+        stateMapDOM.style.fill = colors[0];
+      } else if (data <= range[0] && data > range[1]) {
+        stateMapDOM.style.fill = colors[1];
+      } else if (data <= range[1] && data > range[2]) {
+        stateMapDOM.style.fill = colors[2];
+      } else if (data <= range[2] && data > range[3]) {
+        stateMapDOM.style.fill = colors[3];
+      } else {
+        stateMapDOM.style.fill = colors[4];
+      }
     }
-  }
 
-  mapStateNameDOM.style.cssText = "color: " + accent + "; background-color: " + background +"; border-radius: 5px";
-  
-  mapStateNumberDOM.innerHTML =
-  document.getElementById("india-"+map).textContent;
-  mapStateNumberDOM.style.color = accent;
-  
-  mapStateMapDOM.innerHTML = title + " " + syncIcon;
-  mapStateMapDOM.style.color = accent;
-  mapStateMapDOM.style.border = accent + " dashed 2px";
-  
-  for (i = 0; i < legendDataDOM.length; i++) {
-    legendDataDOM[i].style.backgroundColor = colors[i];
-    legendDataDOM[i].textContent = legendText[i];
-  }
-  
-  document.getElementById("chart-daily").style.backgroundColor = background;
-  document.getElementById("chart-total").style.backgroundColor = background;
+    mapStateNameDOM.style.cssText =
+      "color: " +
+      accent +
+      "; background-color: " +
+      background +
+      "; border-radius: 5px";
+
+    mapStateNumberDOM.innerHTML = document.getElementById(
+      "india-" + map
+    ).textContent;
+    mapStateNumberDOM.style.color = accent;
+
+    mapStateMapDOM.innerHTML = title + " " + syncIcon;
+    mapStateMapDOM.style.color = accent;
+    mapStateMapDOM.style.border = accent + " dashed 2px";
+
+    for (i = 0; i < legendDataDOM.length; i++) {
+      legendDataDOM[i].style.backgroundColor = colors[i];
+      legendDataDOM[i].textContent = legendText[i];
+    }
+
+    document.getElementById("chart-daily").style.backgroundColor = background;
+    document.getElementById("chart-total").style.backgroundColor = background;
+
+    chartView = Number(localStorage.getItem("chartView"));
+    viewCharts(activeMap, chartView);
+  } catch (error) {}
 }
 
 function enableCard(cardIndex) {
   const cards = document.getElementsByClassName("card");
   const current = document.getElementsByClassName("enabled");
-  current[0].className = current[0].className.replace(" enabled", "");
-  cards[cardIndex].className += " enabled";
+  if (!isNaN(current)) {
+    current[0].className = current[0].className.replace(" enabled", "");
+    cards[cardIndex].className += " enabled";
+  }
 }
 
 function viewConfirmed() {
@@ -75,10 +87,8 @@ function viewConfirmed() {
 
   activeMap = "C";
   localStorage.setItem("i", 1);
-  chartView = Number(localStorage.getItem("chartView"));
-  
+
   viewMaps("Confirmed", colors, range, accent, background, legendText);
-  viewCharts(activeMap, chartView);
   enableCard(0);
 }
 
@@ -91,10 +101,8 @@ function viewActive() {
 
   activeMap = "A";
   localStorage.setItem("i", 2);
-  chartView = Number(localStorage.getItem("chartView"));
 
-  viewMaps("Active", colors, range, accent, background, legendText);  
-  viewCharts(activeMap, chartView);
+  viewMaps("Active", colors, range, accent, background, legendText);
   enableCard(1);
 }
 
@@ -107,10 +115,8 @@ function viewRecovered() {
 
   activeMap = "R";
   localStorage.setItem("i", 3);
-  chartView = Number(localStorage.getItem("chartView"));
 
   viewMaps("Recovered", colors, range, accent, background, legendText);
-  viewCharts(activeMap, chartView);
   enableCard(2);
 }
 
@@ -120,13 +126,11 @@ function viewDeceased() {
   legendText = ["Above 50K", "50K - 10K", "10K - 5K", "5K - 1K", "Below 1K"];
   accent = "#9c000d";
   background = "#f8d7da";
-  
+
   activeMap = "D";
   localStorage.setItem("i", 0);
-  chartView = Number(localStorage.getItem("chartView"));
 
   viewMaps("Deceased", colors, range, accent, background, legendText);
-  viewCharts(activeMap, chartView);
   enableCard(3);
 }
 
@@ -134,7 +138,8 @@ function changeSortIcon(n, dir) {
   const icons = document.getElementsByClassName("sort-icon");
   const th = [1, 2, 4, 5, 7];
   n = th.indexOf(n);
-  for (i = 0; i < icons.length; i++) icons[i].className = "fas fa-sort sort-icon";
+  for (i = 0; i < icons.length; i++)
+    icons[i].className = "fas fa-sort sort-icon";
   if (dir == "desc") icons[n].className = "fas fa-caret-down sort-icon";
   else if (dir == "asc") icons[n].className = "fas fa-caret-up sort-icon";
 }
@@ -287,8 +292,10 @@ function changeChart(c) {
   for (const chartDay of chartDays) {
     chartDay.style.backgroundColor = "";
   }
-  document.getElementById("chart-" + c).style.backgroundColor = "#b9b9b9";
-  viewCharts(activeMap, c);
+  try {
+    document.getElementById("chart-" + c).style.backgroundColor = "#b9b9b9";
+    viewCharts(activeMap, c);
+  } catch (error) {}
 }
 
 var maps = [viewConfirmed, viewActive, viewRecovered, viewDeceased];
@@ -316,14 +323,17 @@ function convertDateTime() {
   const currentTime = new Date();
   var updateTime, delta, period;
 
-  const options = {  
-    month: "short", day: "numeric", hour: "2-digit", minute: "2-digit"  
+  const options = {
+    month: "short",
+    day: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
   };
   updateTime = new Date(time[0].textContent);
-  time[0].textContent = updateTime.toLocaleTimeString("en-us", options)
+  time[0].innerHTML = "<b>" + updateTime.toLocaleTimeString("en-us", options) + "</b>";
 
-  for(i = 1; i < time.length; i++) {
-    updateTime = new Date(time[i].textContent)
+  for (i = 1; i < time.length; i++) {
+    updateTime = new Date(time[i].textContent);
     delta = Math.abs(updateTime - currentTime) / 1000;
 
     period = Math.floor(delta / 86400);
