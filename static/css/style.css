@@ -361,3 +361,31 @@ footer {
   right: 0;
   margin-top: auto;
 }
+
+.footer-bar {
+  color: black !important;
+}
+
+.footer-bar a:hover{
+  color: blue !important;
+}
+
+.footer-social .fa-github:hover{
+  color: #24292e;
+}
+
+.footer-social .fa-linkedin:hover{
+  color: #0a66c2;
+}
+
+.footer-social .fa-envelope:hover{
+  color: #ff2600;
+}
+
+.footer-social .fa-instagram:hover{
+  color: #f15360;
+}
+
+.footer-social .fa-twitter:hover{
+  color: #1da1f2;
+}
