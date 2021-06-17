@@ -198,7 +198,6 @@ def state(state):
     update_vaccines = columns[-1]
     update_vaccines = datetime.strptime(update_vaccines, "%d/%m/%Y")
     update_vaccines = update_vaccines.strftime("%b, %d %Y")
-    print(total_vaccines, previous_vaccines, update_vaccines)
 
     tests = [total_tested, delta_tested, update_tested]
     vaccines = [total_vaccines, delta_vaccines, update_vaccines]
