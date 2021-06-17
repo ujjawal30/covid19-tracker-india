@@ -59,6 +59,16 @@ nav {
   box-shadow: none;
 }
 
+.state-page-name {
+  text-align: center;
+  font-weight: bold;
+  color: rgb(0, 0, 158);
+  background-color: #cce6ff;
+  width: fit-content;
+  border-radius: 10px;
+  margin: auto;
+}
+
 .update {
   text-align: center;
   font-weight: normal;
@@ -196,12 +206,11 @@ tr {
 
 .data-not-available {
   margin: auto;
-  padding: 10px;
   color: rgb(190, 22, 22);
   text-align: center;
   background-color: #fda5acab;
   border-radius: 10px;
-  max-width: 500px;
+  font-weight: bold;
 }
 
 #chart {

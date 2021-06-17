@@ -42,5 +42,3 @@ Go to App: [https://cov19in.herokuapp.com/](https://cov19in.herokuapp.com/)
 ## Source
 
 Data is being fetched from API: [api.covid19india.org](https://api.covid19india.org).
-
-**Note**: The individual state page is not completed yet. I'm working on it.😊
