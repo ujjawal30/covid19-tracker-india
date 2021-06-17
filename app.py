@@ -164,12 +164,52 @@ def state(state):
                 row.Delta_Deceased,
             ]
             districtlist.append(districtdata)
+    
+    # State Testing Data
+    testing_data = pandas.read_csv(
+        "https://api.covid19india.org/csv/latest/statewise_tested_numbers_data.csv"
+    )
+    testing_data = testing_data[testing_data.State == state]
+    index = testing_data.index
+    len = 0
+    for i in index:
+        len = i
 
-    state = statedata
-    data = districtlist
+    total_tested = testing_data.loc[len-1, "Total Tested"]
+    previous_tested = testing_data.loc[len-2, "Total Tested"]
+    delta_tested = total_tested - previous_tested
+
+    update_tested = testing_data.loc[len-1, "Updated On"]
+    update_tested = datetime.strptime(update_tested, "%d/%m/%Y")
+    update_tested = update_tested.strftime("%b, %d %Y") 
+
+    # State Vaccine Data
+
+    vaccine_data = pandas.read_csv(
+    "http://api.covid19india.org/csv/latest/vaccine_doses_statewise.csv"
+    )
+    vaccine_data = vaccine_data[vaccine_data.State == state]
+    columns = list(vaccine_data.columns)
+
+    total_vaccines = vaccine_data.iloc[:,-1:].values[0][0]
+    previous_vaccines = vaccine_data.iloc[:,-2:].values[0][0]
+    delta_vaccines = total_vaccines - previous_vaccines
+
+    update_vaccines = columns[-1]
+    update_vaccines = datetime.strptime(update_vaccines, "%d/%m/%Y")
+    update_vaccines = update_vaccines.strftime("%b, %d %Y")
+    print(total_vaccines, previous_vaccines, update_vaccines)
+
+    tests = [total_tested, delta_tested, update_tested]
+    vaccines = [total_vaccines, delta_vaccines, update_vaccines]
 
     return render_template(
-        "state.html", data=data, state=state, unknown_data=unknown_data
+        "state.html",
+        data=districtlist,
+        state=statedata,
+        tests=tests,
+        vaccines=vaccines,
+        unknown_data=unknown_data
     )
 
 

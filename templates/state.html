@@ -5,130 +5,155 @@
 {% endblock %}
 
 {% block container %}
-    <h3 class="pt-3" style="text-align: center;"><span class="state-page-name">{{state.0}}</span> Statistics</h3>
-    <div class="update">Updated on <span class="update-time">{{state.8}}</span></div>
+  <h3 class="pt-3" style="text-align: center;"><span class="state-page-name">{{state.0}}</span> Statistics</h3>
+  <div class="update">Updated on <span class="update-time">{{state.8}}</span></div>
 
-    <!--Head Cards (Confirmed, Active, Recovered, Deceased)-->
-    <div class="row">
-      <div class="col-sm-6 col-lg-3 col-6 py-4">
-        <div class="card text-center confirmed-case shadow-sm">
-          <div class="card-header">
-            Confirmed
-          </div>
-          <h5 class="card-title">{{state.1|numberFormat}}</h5>
-          <p>+{{state.2|numberFormat}}</p>
+  <!--Head Cards (Confirmed, Active, Recovered, Deceased)-->
+  <div class="row">
+    <div class="col-sm-6 col-lg-3 col-6 py-4">
+      <div class="card text-center confirmed-case shadow-sm">
+        <div class="card-header">
+          Confirmed
         </div>
-      </div>
-      <div class="col-sm-6 col-lg-3 col-6 py-4">
-        <div class="card text-center active-case shadow-sm">
-          <div class="card-header">
-            Active
-          </div>
-          <h5 class="card-title">{{state.3|numberFormat}}</h5>
-          {% if state.9 >= 0 %}
-          <p>+{{state.9|numberFormat}}</p>
-          {% else %}
-          <p>{{state.9|numberFormat}}</p>
-          {% endif %}
-        </div>
-      </div>
-      <div class="col-sm-6 col-lg-3 col-6 py-4">
-        <div class="card text-center recovered-case shadow-sm">
-          <div class="card-header">
-            Recovered
-          </div>
-          <h5 class="card-title">{{state.4|numberFormat}}</h5>
-          <p>+{{state.5|numberFormat}}</p>
-        </div>
-      </div>
-      <div class="col-sm-6 col-lg-3 col-6 py-4">
-        <div class="card text-center deceased-case shadow-sm">
-          <div class="card-header">
-            Deaths
-          </div>
-          <h5 class="card-title">{{state.6|numberFormat}}</h5>
-          <p>+{{state.7|numberFormat}}</p>
-        </div>
+        <h5 class="card-title">{{state.1|numberFormat}}</h5>
+        <p>+{{state.2|numberFormat}}</p>
       </div>
     </div>
-
-    <!--Districts Statistics-->
-    {% if unknown_data %}
-    <div class="data-not-available h5">District-wise data not available in state bulletin</div>
-    {% else %}
-    <div class="row">
-      <h3 class="py-4" style="text-align: center;">District-wise Statistics</h3>
-      <div class="col-lg-12 col-sm-12 col-12" style="overflow-x:auto;">
-        <table class="table table-hover w-100" id="state-table">
-          <thead class="table-head">
-            <tr>
-              <th class="table-head" scope="col">#</th>
-              <th class="table-head" scope="col" onclick="sortState()">
-                District<i class="sort-icon fas fa-sort"></i>
-              </th>
-              <th class="table-head" scope="col" onclick="sortTable(2)" colspan="2">
-                Confirmed<i class="sort-icon fas fa-caret-down"></i>
-              </th>
-              <th class="table-head" scope="col" onclick="sortTable(4)">
-                Active<i class="sort-icon fas fa-sort"></i>
-              </th>
-              <th class="table-head" scope="col" onclick="sortTable(5)" colspan="2">
-                Recovered<i class="sort-icon fas fa-sort"></i>
-              </th>
-              <th class="table-head" scope="col" onclick="sortTable(7)" colspan="2">
-                Deceased<i class="sort-icon fas fa-sort"></i>
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {% for d in data %}
-            {% if d.1 != 0 %}
-            <tr id="data">
-              <td class="table-item serial" style="font-weight: normal;">{{loop.index}}</td>
-              <td class="table-item">
-                <a href="state/{{d.9}}">{{d.0}}</a>
-              </td>
-              <td class="table-item">
-                {{d.1|numberFormat}}
-              </td>
-              {% if d.2 != 0 %}
-              <td class="confirmed-case">
-                +{{d.2|numberFormat}}
-              </td>
-              {% else %}
-              <td class="table-item">
-              </td>
-              {% endif %}
-              <td class="table-item">{{d.3|numberFormat}}</td>
-              <td class="table-item">
-                {{d.4|numberFormat}}
-              </td>
-              {% if d.5 != 0 %}
-              <td class="recovered-case">
-                +{{d.5|numberFormat}}
-              </td>
-              {% else %}
-              <td class="table-item">
-              </td>
-              {% endif %}
-              <td class="table-item">
-                {{d.6|numberFormat}}
-              </td>
-              {% if d.7 != 0 %}
-              <td class="deceased-case">
-                +{{d.7|numberFormat}}
-              </td>
-              {% else %}
-              <td class="table-item">
-              </td>
-              {% endif %}
-            </tr>
-            {% endif %}
-            {% endfor %}
-          </tbody>
-        </table>
+    <div class="col-sm-6 col-lg-3 col-6 py-4">
+      <div class="card text-center active-case shadow-sm">
+        <div class="card-header">
+          Active
+        </div>
+        <h5 class="card-title">{{state.3|numberFormat}}</h5>
+        {% if state.9 >= 0 %}
+        <p>+{{state.9|numberFormat}}</p>
+        {% else %}
+        <p>{{state.9|numberFormat}}</p>
+        {% endif %}
       </div>
     </div>
-    {% endif %}
+    <div class="col-sm-6 col-lg-3 col-6 py-4">
+      <div class="card text-center recovered-case shadow-sm">
+        <div class="card-header">
+          Recovered
+        </div>
+        <h5 class="card-title">{{state.4|numberFormat}}</h5>
+        <p>+{{state.5|numberFormat}}</p>
+      </div>
+    </div>
+    <div class="col-sm-6 col-lg-3 col-6 py-4">
+      <div class="card text-center deceased-case shadow-sm">
+        <div class="card-header">
+          Deaths
+        </div>
+        <h5 class="card-title">{{state.6|numberFormat}}</h5>
+        <p>+{{state.7|numberFormat}}</p>
+      </div>
+    </div>
   </div>
+
+  <!--Tested and Vaccine Cards-->
+  <div class="row">
+    <div class="col-sm-6 col-lg-6 col-12 my-3">
+      <div class="card tested-card shadow-sm py-2 px-3" style="cursor: default;">
+        <h5 class="card-title">
+          <span style="color: #5400a3;">{{tests.0|numberFormat}}</span>
+          <span class="inc px-1">+{{tests.1|numberFormat}}</span>
+          <i class="fas fa-info-circle fa-xs update-info" data-bs-toggle="tooltip" data-bs-placement="bottom"
+            data-bs-html="true" title="As of <b>{{tests.2}}</b>"></i>
+        </h5>
+        <span>Total Individuals Tested</span>
+      </div>
+    </div>
+    <div class="col-sm-6 col-lg-6 col-12 my-3">
+      <div class="card vaccinated-card shadow-sm py-2 px-3" style="cursor: default;">
+        <h5 class="card-title">
+          <span style="color: #b4009c">{{vaccines.0|numberFormat}}</span>
+          <span class="inc px-1">+{{vaccines.1|numberFormat}}</span>
+          <i class="fas fa-info-circle fa-xs update-info" data-bs-toggle="tooltip" data-bs-placement="bottom"
+            data-bs-html="true" title="As of <b>{{vaccines.2}}</b>"></i>
+        </h5>
+        <span>Vaccines Doses Administered</span>
+      </div>
+    </div>
+  </div>
+
+  <!--Districts Statistics-->
+  {% if unknown_data %}
+  <div class="data-not-available h5">District-wise data not available in state bulletin</div>
+  {% else %}
+  <div class="row">
+    <h3 class="py-4" style="text-align: center;">District-wise Statistics</h3>
+    <div class="col-lg-12 col-sm-12 col-12" style="overflow-x:auto;">
+      <table class="table table-hover w-100" id="state-table">
+        <thead class="table-head">
+          <tr>
+            <th class="table-head" scope="col">#</th>
+            <th class="table-head" scope="col" onclick="sortState()">
+              District<i class="sort-icon fas fa-sort"></i>
+            </th>
+            <th class="table-head" scope="col" onclick="sortTable(2)" colspan="2">
+              Confirmed<i class="sort-icon fas fa-caret-down"></i>
+            </th>
+            <th class="table-head" scope="col" onclick="sortTable(4)">
+              Active<i class="sort-icon fas fa-sort"></i>
+            </th>
+            <th class="table-head" scope="col" onclick="sortTable(5)" colspan="2">
+              Recovered<i class="sort-icon fas fa-sort"></i>
+            </th>
+            <th class="table-head" scope="col" onclick="sortTable(7)" colspan="2">
+              Deceased<i class="sort-icon fas fa-sort"></i>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for d in data %}
+          {% if d.1 != 0 %}
+          <tr id="data">
+            <td class="table-item serial" style="font-weight: normal;">{{loop.index}}</td>
+            <td class="table-item">
+              <a href="state/{{d.9}}">{{d.0}}</a>
+            </td>
+            <td class="table-item">
+              {{d.1|numberFormat}}
+            </td>
+            {% if d.2 != 0 %}
+            <td class="confirmed-case">
+              +{{d.2|numberFormat}}
+            </td>
+            {% else %}
+            <td class="table-item">
+            </td>
+            {% endif %}
+            <td class="table-item">{{d.3|numberFormat}}</td>
+            <td class="table-item">
+              {{d.4|numberFormat}}
+            </td>
+            {% if d.5 != 0 %}
+            <td class="recovered-case">
+              +{{d.5|numberFormat}}
+            </td>
+            {% else %}
+            <td class="table-item">
+            </td>
+            {% endif %}
+            <td class="table-item">
+              {{d.6|numberFormat}}
+            </td>
+            {% if d.7 != 0 %}
+            <td class="deceased-case">
+              +{{d.7|numberFormat}}
+            </td>
+            {% else %}
+            <td class="table-item">
+            </td>
+            {% endif %}
+          </tr>
+          {% endif %}
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+  {% endif %}
 {% endblock %}
