@@ -34,16 +34,22 @@ def index():
 
     states_data.sort_values(by=["Confirmed"], inplace=True, ascending=False)
 
-    total_tested = icmr_data.loc[len(icmr_data) - 1, "Total Samples Tested"]
-    previous_tested = icmr_data.loc[len(icmr_data) - 2, "Total Samples Tested"]
+    index = icmr_data.index
+    len = 0
+    for i in index:
+        len = i
 
-    total_vaccines = icmr_data.loc[len(icmr_data) - 1, "Total Doses Administered"]
-    previous_vaccines = icmr_data.loc[len(icmr_data) - 2, "Total Doses Administered"]
+    total_tested = icmr_data.loc[len - 1, "Total Samples Tested"]
+    previous_tested = icmr_data.loc[len - 2, "Total Samples Tested"]
 
-    last_date = icmr_data.loc[len(icmr_data) - 1, "Tested As Of"]
+    total_vaccines = icmr_data.loc[len - 1, "Total Doses Administered"]
+    previous_vaccines = icmr_data.loc[len - 2, "Total Doses Administered"]
+
+    last_date = icmr_data.loc[len - 1, "Tested As Of"]
 
     time_series.columns = time_series.columns.str.replace(" ", "")
 
+    print(total_tested, total_vaccines, last_date)
     test_update = datetime.strptime(last_date, "%d/%m/%Y")
     test_update = test_update.strftime("%b, %d %Y")
 
